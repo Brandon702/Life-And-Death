@@ -245,7 +245,7 @@ public class MenuController : MonoBehaviour
         gameTrackPlayer();
         Time.timeScale = 1;
         GameController.Instance.state = eState.GAME;
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene("Game");
     }
 
     public void ResumeGame()
