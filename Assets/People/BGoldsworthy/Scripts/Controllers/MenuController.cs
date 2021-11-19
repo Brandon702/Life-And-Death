@@ -37,6 +37,10 @@ public class MenuController : MonoBehaviour
     public bool paused;
     public bool nationSelected = false;
     public GameObject eventWindow;
+    [SerializeField] GameObject startText;
+    private float scaleMultiplier = 1.0f;
+    bool swapper = true;
+    [SerializeField] float rateOfChange = 0.001f;
 
     #endregion
 
@@ -76,7 +80,27 @@ public class MenuController : MonoBehaviour
 
     private void Update()
     {
-       
+       if(GameController.Instance.state == eState.TITLE && startText != null)
+       {
+            if (scaleMultiplier <= 1.2f && swapper == true)
+            {
+                scaleMultiplier += rateOfChange;
+                if(scaleMultiplier >= 1.2f)
+                {
+                    swapper = false;
+                }
+            }
+            else if (scaleMultiplier >= 0.8f && swapper == false)
+            {
+                scaleMultiplier -= rateOfChange;
+                if (scaleMultiplier <= 0.8f)
+                {
+                    swapper = true;
+                }
+            }
+            startText.transform.localScale = new Vector3(1, 1, 1) * scaleMultiplier;
+            
+       }
     }
 
     private bool IsPointerOverUIObject(int val)
@@ -108,42 +132,8 @@ public class MenuController : MonoBehaviour
             audioStopper();
         }
 
-        int trackPlay = UnityEngine.Random.Range(1, 7);
-        switch (trackPlay)
-        {
-            case 1:
-                audioController.Play("Track1");
-                Debug.Log("Now Playing Track1");
-                playing = 1;
-                break;
-            case 2:
-                audioController.Play("Track2");
-                Debug.Log("Now Playing Track2");
-                playing = 2;
-                break;
-            case 3:
-                audioController.Play("Track3");
-                Debug.Log("Now Playing Track3");
-                playing = 3;
-                break;
-            case 4:
-                audioController.Play("Track4");
-                Debug.Log("Now Playing Track4");
-                playing = 4;
-                break;
-            case 5:
-                audioController.Play("Track5");
-                Debug.Log("Now Playing Track5");
-                playing = 5;
-                break;
-            case 6:
-                audioController.Play("Track6");
-                Debug.Log("Now Playing Track6");
-                playing = 6;
-                break;
-            default:
-                break;
-        }
+        audioController.Play("Track1");
+        playing = 1;
         if (startup == false) startup = true;
     }
 
@@ -168,33 +158,32 @@ public class MenuController : MonoBehaviour
 
     private void gameTrackPlayer()
     {
-        //audioController.Stop("Track" + playing);
-        //int trackPlay = UnityEngine.Random.Range(0, 4);
-        //if (trackPlay == 1)
-        //{
-        //    audioController.Play("Track1");
-        //    Debug.Log("Track 1 played");
-        //    playing = 1;
-        //}
-        //else if (trackPlay == 2)
-        //{
-        //    audioController.Play("Track2");
-        //    Debug.Log("Track 2 played");
-        //    playing = 2;
-        //}
-        //else if (trackPlay == 3)
-        //{
-        //    audioController.Play("Track3");
-        //    Debug.Log("Track 3 played");
-        //    playing = 3;
-        //}
-        //else
-        //{
-        //    audioController.Play("Track4");
-        //    Debug.Log("Track 4 played");
-        //    playing = 4;
-        //}
-        universalAudioPlayer();
+        audioController.Stop("Track" + playing);
+        int trackPlay = UnityEngine.Random.Range(0, 4);
+        if (trackPlay == 1)
+        {
+            audioController.Play("Track2");
+            Debug.Log("Track 1 played");
+            playing = 1;
+        }
+        else if (trackPlay == 2)
+        {
+            audioController.Play("Track3");
+            Debug.Log("Track 2 played");
+            playing = 2;
+        }
+        else if (trackPlay == 3)
+        {
+            audioController.Play("Track4");
+            Debug.Log("Track 3 played");
+            playing = 3;
+        }
+        else
+        {
+            audioController.Play("Track5");
+            Debug.Log("Track 4 played");
+            playing = 4;
+        }
     }
 
     #endregion
@@ -420,7 +409,10 @@ public class MenuController : MonoBehaviour
     public void ResetApplication()
     {
         Disable();
+        var scene = GameObject.Find("Scene").GetComponent<Transform>();
+        Destroy(scene.root.gameObject);
         SceneManager.LoadScene("Main");
+
     }
 
     public void ExitGame()
