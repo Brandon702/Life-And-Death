@@ -37,7 +37,6 @@ public class MenuController : MonoBehaviour
     public bool paused;
     public bool nationSelected = false;
     public GameObject eventWindow;
-    private string selectedNation;
 
     #endregion
 
@@ -47,8 +46,7 @@ public class MenuController : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         audioController = GameObject.Find("Controllers").GetComponent<AudioController>();
-        //audiosPanel = GameObject.FindGameObjectWithTag("aPanel").GetComponent<RectTransform>();
-        //controlsPanel = GameObject.FindGameObjectWithTag("cPanel").GetComponent<RectTransform>();
+        gameController = GameObject.Find("Controllers").GetComponent<GameController>();
     }
 
     private void Start()
@@ -291,7 +289,7 @@ public class MenuController : MonoBehaviour
     }
     public void Pause()
     {
-        if (GameController.Instance.state == eState.GAME && nationSelected == true)
+        if (GameController.Instance.state == eState.GAME)
         {
             //Disabled timescale since its an action based multiplayer game
             Time.timeScale = 1;

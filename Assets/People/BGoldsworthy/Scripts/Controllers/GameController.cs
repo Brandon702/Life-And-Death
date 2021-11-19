@@ -50,7 +50,6 @@ public class GameController : MonoBehaviour
 
     [Header("Editable values")]
     public eState state = eState.TITLE;
-    public Nation playerNation;
 
     //Dont touch these variables:
     bool forceOnce = true;
