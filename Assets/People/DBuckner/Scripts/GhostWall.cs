@@ -8,7 +8,7 @@ public class GhostWall : MonoBehaviour
     {
         if(collision.gameObject.tag == "Ghost")
         {
-            collision.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            this.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
         }
     }
 
@@ -16,7 +16,7 @@ public class GhostWall : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ghost")
         {
-            collision.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+            this.gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
         }
     }
 }
