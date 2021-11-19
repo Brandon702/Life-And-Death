@@ -2462,6 +2462,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1019101151654977234, guid: 09b79c454bdfdd44da0147388b4f38fe, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1019101152208431302, guid: 09b79c454bdfdd44da0147388b4f38fe, type: 3}
       propertyPath: m_Name
       value: VerticalPlatform
