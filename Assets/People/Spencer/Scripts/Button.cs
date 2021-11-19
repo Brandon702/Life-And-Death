@@ -51,14 +51,28 @@ public class Button : MonoBehaviour
                 {
                     foreach (GameObject wall in objects)
                     {
-                        wall.GetComponent<GhostWall>().enabled = true;
+                        if (wall.GetComponent<GhostWall>() != null)
+                        {
+                            Destroy(wall.GetComponent<GhostWall>());
+                        }
+                        else
+                        {
+                            wall.AddComponent<GhostWall>();
+                        }
                     }
                 }
                 else
                 {
                     foreach (GameObject wall in objects)
                     {
-                        wall.GetComponent<GhostWall>().enabled = false;
+                        if (wall.GetComponent<GhostWall>() != null)
+                        {
+                            Destroy(wall.GetComponent<GhostWall>());
+                        }
+                        else
+                        {
+                            wall.AddComponent<GhostWall>();
+                        }
                     }
                 }
                     break;
