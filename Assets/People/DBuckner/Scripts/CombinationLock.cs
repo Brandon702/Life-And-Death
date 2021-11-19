@@ -29,6 +29,7 @@ public class CombinationLock : MonoBehaviour
                 break;
             case 3:
                 two = !two;
+                three = !three;
                 five = !five;
                 break;
             case 4:
