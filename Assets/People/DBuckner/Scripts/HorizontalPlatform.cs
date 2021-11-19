@@ -9,7 +9,7 @@ public class HorizontalPlatform : MonoBehaviour
     [SerializeField]
     private Transform right;
 
-    bool goingLeft = true;
+    private bool goingLeft = true;
 
     private void Update()
     {
