@@ -9,7 +9,9 @@ public class HorizontalPlatform : MonoBehaviour
     [SerializeField]
     private Transform right;
 
-    private bool goingLeft = true;
+    private List<Transform> connectedTransforms = new List<Transform>();
+
+    bool goingLeft = true;
 
     private void Update()
     {
@@ -23,6 +25,28 @@ public class HorizontalPlatform : MonoBehaviour
             transform.position += new Vector3(1 * Time.deltaTime, 0, 0);
             if (transform.position.x > right.position.x) goingLeft = true;
         }
+        if (connectedTransforms.Count > 0)
+        {
+            foreach (Transform t in connectedTransforms)
+            {
+                if (goingLeft)
+                {
+                    t.position -= new Vector3(1 * Time.deltaTime, 0, 0);
+                }
+                else
+                {
+                    t.position += new Vector3(1 * Time.deltaTime, 0, 0);
+                }
+            }
+        }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        connectedTransforms.Add(collision.transform);
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        connectedTransforms.Remove(collision.transform);
+    }
 }
