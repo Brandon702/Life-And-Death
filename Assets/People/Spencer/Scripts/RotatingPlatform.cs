@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotatingFloor : MonoBehaviour
+public class RotatingPlatform : MonoBehaviour
 {
     float rotZ;
     float maxTime = .1f;
@@ -12,12 +12,13 @@ public class RotatingFloor : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
-        if(timer <= 0)
+        if (timer <= 0)
         {
             rotZ += 5;
             transform.rotation = Quaternion.Euler(0, 0, rotZ);
+            Debug.Log(rotZ);
             timer = maxTime;
         }
-        
+
     }
 }
