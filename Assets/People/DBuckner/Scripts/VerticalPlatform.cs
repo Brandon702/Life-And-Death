@@ -13,12 +13,6 @@ public class VerticalPlatform : MonoBehaviour
 
     private bool goingUp = true;
 
-    private void Start()
-    {
-        //So time doesn't stand still.
-        Time.timeScale = 1;
-    }
-
     private void Update()
     {
         if(goingUp)
