@@ -229,6 +229,7 @@ public class MenuController : MonoBehaviour
     {
         Disable();
         audioController.Stop("Track" + playing);
+        GamePanel.SetActive(true);
         gameTrackPlayer();
         Time.timeScale = 1;
         GameController.Instance.state = eState.GAME;

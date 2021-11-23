@@ -1993,7 +1993,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 291dbe025418c3e4ca028fd46016aef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - name: Track1
+    clip: {fileID: 8300000, guid: 08ed2cb9051ced54e99e8c30bacfe4ea, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    audioType: 1
+  - name: Track2
+    clip: {fileID: 8300000, guid: 8716e335a8bcb434e9a26791fae6747c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioType: 1
+  - name: Track3
+    clip: {fileID: 8300000, guid: ddc98b24c47b2c64ab7837bb33d6c377, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioType: 1
+  - name: Track4
+    clip: {fileID: 8300000, guid: 15df76af688675b4984d44cd6d8585bf, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioType: 1
+  - name: Track5
+    clip: {fileID: 8300000, guid: e3c4c93ee6307844e82e99d1f7bda306, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioType: 1
+  - name: Track6
+    clip: {fileID: 8300000, guid: 3e4072a2ae878574bb4b606af2c4402b, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioType: 1
   mixer: {fileID: 24100000, guid: a15757872b838f943a6238533b88cf2a, type: 2}
 --- !u!1 &996236568
 GameObject:
