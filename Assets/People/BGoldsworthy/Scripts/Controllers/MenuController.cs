@@ -57,7 +57,7 @@ public class MenuController : MonoBehaviour
     {
         populatePanels();
         Disable();
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         GameController.Instance.state = eState.TITLE;
         if (GameController.Instance.state == eState.TITLE)  
         {
@@ -229,8 +229,9 @@ public class MenuController : MonoBehaviour
     {
         Disable();
         audioController.Stop("Track" + playing);
+        GamePanel.SetActive(true);
         gameTrackPlayer();
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
         GameController.Instance.state = eState.GAME;
         SceneManager.LoadScene("Game");
     }
@@ -238,7 +239,7 @@ public class MenuController : MonoBehaviour
     public void ResumeGame()
     {
         Disable();
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
         GamePanel.SetActive(true);
         GameController.Instance.state = eState.GAME;
         Debug.Log("Resume Game");
@@ -281,7 +282,7 @@ public class MenuController : MonoBehaviour
         if (GameController.Instance.state == eState.GAME)
         {
             //Disabled timescale since its an action based multiplayer game
-            Time.timeScale = 1;
+            //Time.timeScale = 1;
             Disable();
             PausePanel.SetActive(true);
             GameController.Instance.state = eState.PAUSE;
