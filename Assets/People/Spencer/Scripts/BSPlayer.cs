@@ -20,4 +20,12 @@ public class BSPlayer : MonoBehaviour
         tempVect = tempVect.normalized * speed * Time.deltaTime;
         rb.MovePosition(rb.transform.position + tempVect);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(Input.GetKeyDown("e") && collision.gameObject.tag == "Button")
+        {
+            collision.gameObject.GetComponent<Button>().OnClick();
+        }
+    }
 }
