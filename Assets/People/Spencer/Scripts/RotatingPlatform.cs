@@ -8,6 +8,11 @@ public class RotatingPlatform : MonoBehaviour
     float maxTime = .1f;
     float timer = .1f;
 
+    private void Start()
+    {
+        Time.timeScale = 1;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -16,7 +21,6 @@ public class RotatingPlatform : MonoBehaviour
         {
             rotZ += 5;
             transform.rotation = Quaternion.Euler(0, 0, rotZ);
-            Debug.Log(rotZ);
             timer = maxTime;
         }
 
