@@ -6,7 +6,10 @@ public class BSPlayer : MonoBehaviour
 {
     public float speed = 100;
     public Rigidbody2D rb;
-
+    private void Start()
+    {
+        Time.timeScale = 1;
+    }
     // Update is called once per frame
     void Update()
     {
