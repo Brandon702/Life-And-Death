@@ -1995,7 +1995,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Track1
-    clip: {fileID: 8300000, guid: 08ed2cb9051ced54e99e8c30bacfe4ea, type: 3}
+    clip: {fileID: 8300000, guid: 15df76af688675b4984d44cd6d8585bf, type: 3}
     volume: 1
     pitch: 1
     loop: 1
@@ -2016,7 +2016,7 @@ MonoBehaviour:
     source: {fileID: 0}
     audioType: 1
   - name: Track4
-    clip: {fileID: 8300000, guid: 15df76af688675b4984d44cd6d8585bf, type: 3}
+    clip: {fileID: 8300000, guid: 08ed2cb9051ced54e99e8c30bacfe4ea, type: 3}
     volume: 1
     pitch: 1
     loop: 0
@@ -5663,7 +5663,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2016413084}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 9448eb913bdaf2f47a5bc6d0e8a4c0e9, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 83e7b179f01d6814987cdaa7a1a455b8, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
