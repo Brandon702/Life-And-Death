@@ -20,7 +20,7 @@ public class Button : MonoBehaviour
     public eButtonType buttonType;
 
     // Update is called once per frame
-    void Update()
+    public void OnClick()
     {
         switch (buttonType)
         {
