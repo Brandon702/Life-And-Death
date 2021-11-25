@@ -7,7 +7,7 @@ public class Button : MonoBehaviour
     [SerializeField]
     private GameObject[] objects;
 
-    private bool buttonActivation = false;
+    public bool buttonActivation = false;
 
     public enum eButtonType
     {
@@ -22,6 +22,7 @@ public class Button : MonoBehaviour
     // Update is called once per frame
     public void OnClick()
     {
+        Debug.Log("Button activated");
         switch (buttonType)
         {
             case eButtonType.UnlockDoor:

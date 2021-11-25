@@ -7,7 +7,7 @@ public class LockedDoor : MonoBehaviour
     private bool locked = true;
     public bool Locked { get => locked; }
     [SerializeField]
-    private Sprite doorSprite;
+    private GameObject doorSprite;
 
     public void ChangeLocked()
     {
