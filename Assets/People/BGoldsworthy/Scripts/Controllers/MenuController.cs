@@ -205,10 +205,10 @@ public class MenuController : MonoBehaviour
         RectTransform[] transforms = MainUI.GetComponentsInChildren<RectTransform>();
         foreach (RectTransform child in transforms)
         {
-            if (child.gameObject.CompareTag("UI"))
+            if (child.gameObject.CompareTag("UI") && child.name != "LoadingScreenPanel")
             {
-                child.gameObject.SetActive(true);
                 panels.Add(child.gameObject);
+                child.gameObject.SetActive(true);
                 Debug.Log(child.name);
                 if (child.name == "MainMenuPanel") { MainMenuPanel = child.gameObject; }
                 if (child.name == "OptionsPanel") { OptionsPanel = child.gameObject; }
@@ -217,9 +217,13 @@ public class MenuController : MonoBehaviour
                 if (child.name == "InstructionsPanel") { InstructionsPanel = child.gameObject; }
                 if (child.name == "GamePanel") { GamePanel = child.gameObject; }
                 if (child.name == "VideoPanel") { VideoPanel = child.gameObject; }
-                if (child.name == "LoadingScreenPanel") { LoadingScreenPanel = child.gameObject; }
+            }
+            else if(child.gameObject.CompareTag("UI") && child.name == "LoadingScreenPanel")
+            {
+                if (child.name == "LoadingScreenPanel") { LoadingScreenPanel = child.gameObject; LoadingScreenPanel.SetActive(false); }
             }
         }
+
     }
 
     public void Disable()
@@ -231,14 +235,11 @@ public class MenuController : MonoBehaviour
     }
     public void StartGame()
     {
-        Disable();
+        StartCoroutine(LoadLevel("Game"));
         audioController.Stop("Track" + playing);
-        transition.SetTrigger("Start");
-        GamePanel.SetActive(true);
         gameTrackPlayer();
         //Time.timeScale = 1;
         GameController.Instance.state = eState.GAME;
-        StartCoroutine(LoadLevel("Game"));
     }
 
     public void ResumeGame()
@@ -352,10 +353,20 @@ public class MenuController : MonoBehaviour
     {
         LoadingScreenPanel.SetActive(true);
         yield return new WaitForSeconds(transitionTime);
-        transition.SetTrigger("Start");
+        if (levelName == "Main")
+        {
+            var scene = GameObject.Find("Scene").GetComponent<Transform>();
+            Destroy(scene.root.gameObject);
+        }
+        else
+        {
+            Disable();
+            GamePanel.SetActive(true);
+            transition.SetTrigger("Start");
+        }
+        SceneManager.LoadScene(levelName);
         yield return new WaitForSeconds(1.8f);
         LoadingScreenPanel.SetActive(false);
-        SceneManager.LoadScene(levelName);
     }
 
     #endregion
@@ -424,11 +435,7 @@ public class MenuController : MonoBehaviour
     #region Reset/Exit Game
     public void ResetApplication()
     {
-        Disable();
-        var scene = GameObject.Find("Scene").GetComponent<Transform>();
-        Destroy(scene.root.gameObject);
-        SceneManager.LoadScene("Main");
-
+        StartCoroutine(LoadLevel("Main"));
     }
 
     public void ExitGame()
