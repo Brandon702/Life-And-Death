@@ -60,7 +60,7 @@ public class MenuController : MonoBehaviour
     {
         populatePanels();
         Disable();
-        //Time.timeScale = 0;
+        Time.timeScale = 1;
         GameController.Instance.state = eState.TITLE;
         if (GameController.Instance.state == eState.TITLE)  
         {
@@ -348,13 +348,12 @@ public class MenuController : MonoBehaviour
         GameController.Instance.state = eState.PAUSE;
     }
 
-    IEnumerator LoadLevel(string levelName)
+    private IEnumerator LoadLevel(string levelName)
     {
         LoadingScreenPanel.SetActive(true);
-        transition.SetTrigger("Start");
-        //Game gets stuck on the following line
         yield return new WaitForSeconds(transitionTime);
-
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(1.8f);
         LoadingScreenPanel.SetActive(false);
         SceneManager.LoadScene(levelName);
     }
