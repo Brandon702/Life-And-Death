@@ -22,6 +22,7 @@ public class MenuController : MonoBehaviour
     private GameObject InstructionsPanel;
     private GameObject GamePanel;
     private GameObject VideoPanel;
+    private GameObject LoadingScreenPanel;
 
     [Header("Other")]
     public GameController gameController;
@@ -41,6 +42,8 @@ public class MenuController : MonoBehaviour
     private float scaleMultiplier = 1.0f;
     bool swapper = true;
     [SerializeField] float rateOfChange = 0.001f;
+    [SerializeField] private Animator transition;
+    [SerializeField] private float transitionTime = 1f;
 
     #endregion
 
@@ -214,6 +217,7 @@ public class MenuController : MonoBehaviour
                 if (child.name == "InstructionsPanel") { InstructionsPanel = child.gameObject; }
                 if (child.name == "GamePanel") { GamePanel = child.gameObject; }
                 if (child.name == "VideoPanel") { VideoPanel = child.gameObject; }
+                if (child.name == "LoadingScreenPanel") { LoadingScreenPanel = child.gameObject; }
             }
         }
     }
@@ -229,11 +233,12 @@ public class MenuController : MonoBehaviour
     {
         Disable();
         audioController.Stop("Track" + playing);
+        transition.SetTrigger("Start");
         GamePanel.SetActive(true);
         gameTrackPlayer();
         //Time.timeScale = 1;
         GameController.Instance.state = eState.GAME;
-        SceneManager.LoadScene("Game");
+        StartCoroutine(LoadLevel("Game"));
     }
 
     public void ResumeGame()
@@ -324,7 +329,7 @@ public class MenuController : MonoBehaviour
         Disable();
         if (SceneManager.GetActiveScene().name != "Main")
         {
-            SceneManager.LoadScene("Main");
+            StartCoroutine(LoadLevel("Main"));
         }
         GamePanel.SetActive(false);
         MainMenuPanel.SetActive(true);
@@ -341,6 +346,17 @@ public class MenuController : MonoBehaviour
         Disable();
         PausePanel.SetActive(true);
         GameController.Instance.state = eState.PAUSE;
+    }
+
+    IEnumerator LoadLevel(string levelName)
+    {
+        LoadingScreenPanel.SetActive(true);
+        transition.SetTrigger("Start");
+        //Game gets stuck on the following line
+        yield return new WaitForSeconds(transitionTime);
+
+        LoadingScreenPanel.SetActive(false);
+        SceneManager.LoadScene(levelName);
     }
 
     #endregion
