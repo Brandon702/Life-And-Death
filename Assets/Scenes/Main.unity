@@ -2256,6 +2256,7 @@ MonoBehaviour:
   startText: {fileID: 639047442}
   rateOfChange: 0.001
   transition: {fileID: 268134291}
+  transitionTime: 2
 --- !u!114 &899340141
 MonoBehaviour:
   m_ObjectHideFlags: 0
