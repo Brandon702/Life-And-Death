@@ -44,6 +44,12 @@ public class MenuController : MonoBehaviour
     [SerializeField] float rateOfChange = 0.001f;
     [SerializeField] private Animator transition;
     [SerializeField] private float transitionTime = 1f;
+    [SerializeField] Slider progressBar;
+    [SerializeField] TextMeshProUGUI loadingText;
+    private float changeLoadingUi = 0f;
+    private float minimumLoadingTime = 0f;
+    private int elipses = 0;
+    private bool isLoading = true;
 
     #endregion
 
@@ -73,6 +79,7 @@ public class MenuController : MonoBehaviour
             controlsPanel.gameObject.SetActive(false);
             audiosPanel.gameObject.SetActive(true);
         }
+        Screen.orientation = ScreenOrientation.Landscape;
         
     }
 
@@ -220,7 +227,14 @@ public class MenuController : MonoBehaviour
             }
             else if(child.gameObject.CompareTag("UI") && child.name == "LoadingScreenPanel")
             {
-                if (child.name == "LoadingScreenPanel") { LoadingScreenPanel = child.gameObject; LoadingScreenPanel.SetActive(false); }
+                if (child.name == "LoadingScreenPanel")
+                {
+                    LoadingScreenPanel = child.gameObject;
+                    LoadingScreenPanel.SetActive(false);
+                    progressBar = LoadingScreenPanel.transform.Find("LoadingBar").gameObject.GetComponent<Slider>();
+                    loadingText = LoadingScreenPanel.transform.Find("LoadingText").gameObject.GetComponent<TextMeshProUGUI>();
+                }
+
             }
         }
 
@@ -351,8 +365,19 @@ public class MenuController : MonoBehaviour
 
     private IEnumerator LoadLevel(string levelName)
     {
+        if (transitionTime <= 0)
+        {
+            transitionTime = 2;
+        }
+        Time.timeScale = 1;
+        isLoading = true;
+        elipses = 0;
+        LoadingScreenPanel.transform.Find("LoadingText").gameObject.SetActive(false);
+        LoadingScreenPanel.transform.Find("LoadingBar").gameObject.SetActive(false);
         LoadingScreenPanel.SetActive(true);
+        transition.SetTrigger("Start");
         yield return new WaitForSeconds(transitionTime);
+        Disable();
         if (levelName == "Main")
         {
             var scene = GameObject.Find("Scene").GetComponent<Transform>();
@@ -360,17 +385,67 @@ public class MenuController : MonoBehaviour
         }
         else
         {
-            Disable();
+            LoadingScreenPanel.transform.Find("LoadingText").gameObject.SetActive(true);
+            LoadingScreenPanel.transform.Find("LoadingBar").gameObject.SetActive(true);
             GamePanel.SetActive(true);
-            transition.SetTrigger("Start");
         }
-        SceneManager.LoadScene(levelName);
-        yield return new WaitForSeconds(1.8f);
-        LoadingScreenPanel.SetActive(false);
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
+        loadingText.text = "Loading Game...";
+        changeLoadingUi = 3;
+        while (isLoading)
+        {
+            changeLoadingUi += Time.deltaTime;
+            minimumLoadingTime += Time.deltaTime;
+            if (changeLoadingUi > 0.5f)
+            {
+                TextChange();
+                changeLoadingUi = 0;
+            }
+            progressBar.value = operation.progress;
+            if (operation.isDone && minimumLoadingTime >= 2f)
+            {
+                isLoading = false;
+                transition.SetTrigger("End");
+                LoadingScreenPanel.transform.Find("LoadingText").gameObject.SetActive(false);
+                LoadingScreenPanel.transform.Find("LoadingBar").gameObject.SetActive(false);
+                yield return new WaitForSeconds(transitionTime);
+                LoadingScreenPanel.SetActive(false);
+            }
+            yield return 0;
+        }
+
+    }
+
+    private void TextChange()
+    {
+        if (elipses < 3)
+        {
+            elipses++;
+            switch (elipses)
+            {
+                case 1:
+                    loadingText.text = "Loading Game.";
+                    break;
+                case 2:
+                    loadingText.text = "Loading Game..";
+                    break;
+                case 3:
+                    loadingText.text = "Loading Game...";
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            elipses = 1;
+            loadingText.text = "Loading Game.";
+        }
     }
 
     #endregion
-    
+
     #region Set Audio Levels
     public void SetLevelMST(float sliderValue)
     {
