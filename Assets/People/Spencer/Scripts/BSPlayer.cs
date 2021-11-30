@@ -10,9 +10,12 @@ public class BSPlayer : MonoBehaviour
     private bool isTriggered = false;
     private Collider2D button;
 
+    private PlayerCameraController pcc;
+
     private void Start()
     {
         Time.timeScale = 1;
+        pcc = GetComponent<PlayerCameraController>();
     }
 
     // Update is called once per frame
@@ -24,6 +27,8 @@ public class BSPlayer : MonoBehaviour
         Vector3 tempVect = new Vector3(h, v, 0);
         tempVect = tempVect.normalized * speed * Time.deltaTime;
         rb.MovePosition(rb.transform.position + tempVect);
+
+        pcc.MoveCamera();
 
         if (Input.GetKeyDown(KeyCode.E) && isTriggered == true)
         {
