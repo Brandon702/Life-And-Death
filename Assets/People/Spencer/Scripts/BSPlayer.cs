@@ -28,7 +28,7 @@ public class BSPlayer : MonoBehaviour
         tempVect = tempVect.normalized * speed * Time.deltaTime;
         rb.MovePosition(rb.transform.position + tempVect);
 
-        pcc.MoveCamera();
+        //pcc.MoveCamera();
 
         if (Input.GetKeyDown(KeyCode.E) && isTriggered == true)
         {
