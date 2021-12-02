@@ -86,8 +86,8 @@ MonoBehaviour:
   MaxRangeRadiusMultiplier: 1
   FollowSpeed: 0
   StartMode: 1
-  RestrictJoystickPositionTo: {fileID: 0}
-  ReturnToHomePosition: 0
+  RestrictJoystickPositionTo: {fileID: 58714598149532592}
+  ReturnToHomePosition: 1
   CrossPlatformInputHorizontalAxisName: Horizontal
   CrossPlatformInputVerticalAxisName: Vertical
   JoystickCallback:
