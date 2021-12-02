@@ -23,7 +23,7 @@ namespace Mirror
 
         void OnGUI()
         {
-            GUILayout.BeginArea(new Rect(10 + offsetX, 40 + offsetY, 215, 9999));
+            GUILayout.BeginArea(new Rect(offsetX, offsetY, (Screen.width * .8f), (Screen.height*.8f)));
             if (!NetworkClient.isConnected && !NetworkServer.active)
             {
                 StartButtons();

@@ -26,9 +26,8 @@ public class BSPlayer : MonoBehaviour
 
         Vector3 tempVect = new Vector3(h, v, 0);
         tempVect = tempVect.normalized * speed * Time.deltaTime;
-        rb.MovePosition(rb.transform.position + tempVect);
 
-        pcc.MoveCamera();
+        //pcc.MoveCamera();
 
         if (Input.GetKeyDown(KeyCode.E) && isTriggered == true)
         {
@@ -36,6 +35,11 @@ public class BSPlayer : MonoBehaviour
             button.gameObject.GetComponent<Button>().buttonActivation = true;
             button.gameObject.GetComponent<Button>().OnClick();
         }
+    }
+
+    public void OnMove(Vector2 input)
+    {
+        rb.MovePosition(rb.transform.position + new Vector3(input.x, input.y, 0));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
