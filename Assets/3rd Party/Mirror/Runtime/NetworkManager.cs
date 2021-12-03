@@ -310,6 +310,7 @@ namespace Mirror
         /// <summary>Starts the client, connects it to the server with networkAddress.</summary>
         public void StartClient()
         {
+            Debug.Log("starting client");
             if (NetworkClient.active)
             {
                 Debug.LogWarning("Client already started.");
