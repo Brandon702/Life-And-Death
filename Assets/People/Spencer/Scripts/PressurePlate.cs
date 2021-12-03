@@ -14,11 +14,6 @@ public class PressurePlate : MonoBehaviour
     private GameObject gameObjectPassedIn;
     private Vector3 objectPosition;
 
-    private void Start()
-    {
-        Time.timeScale = 1;
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -27,7 +22,7 @@ public class PressurePlate : MonoBehaviour
         if (isActivated == true)
         {
             Debug.Log("activated");
-            Vector3 objectPosition = gameObject.transform.position;
+            //objectPosition = gameObject.transform.position;
             objectPosition.y -= Time.deltaTime;
             //gameObject.transform.position = new Vector3(objectPosition.x, objectPosition.y, objectPosition.z);
             if (objectPosition.y <= minHeight)
@@ -37,7 +32,7 @@ public class PressurePlate : MonoBehaviour
         }
         else if(isActivated == false)
         {
-            Vector3 objectPosition = gameObject.transform.position;
+            //Vector3 objectPosition = gameObject.transform.position;
             objectPosition.y += Time.deltaTime;
             if (objectPosition.y >= maxHeight)
             {
@@ -71,6 +66,7 @@ public class PressurePlate : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        Debug.Log("Unactivated");
         isActivated = false;
     }
 }
