@@ -9,7 +9,7 @@ public class HorizontalPlatform : MonoBehaviour
     [SerializeField]
     private Transform right;
 
-    private List<Transform> connectedTransforms = new List<Transform>();
+    private List<Rigidbody2D> connectedTransforms = new List<Rigidbody2D>();
 
     bool goingLeft = true;
 
@@ -27,15 +27,15 @@ public class HorizontalPlatform : MonoBehaviour
         }
         if (connectedTransforms.Count > 0)
         {
-            foreach (Transform t in connectedTransforms)
+            foreach (Rigidbody2D t in connectedTransforms)
             {
                 if (goingLeft)
                 {
-                    t.position -= new Vector3(1 * Time.deltaTime, 0, 0);
+                    t.MovePosition(t.position + new Vector2(-1 * Time.deltaTime, 0));
                 }
                 else
                 {
-                    t.position += new Vector3(1 * Time.deltaTime, 0, 0);
+                    t.MovePosition(t.position + new Vector2(Time.deltaTime, 0));
                 }
             }
         }
@@ -43,10 +43,10 @@ public class HorizontalPlatform : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        connectedTransforms.Add(collision.transform);
+        connectedTransforms.Add(collision.rigidbody);
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        connectedTransforms.Remove(collision.transform);
+        connectedTransforms.Remove(collision.rigidbody);
     }
 }
