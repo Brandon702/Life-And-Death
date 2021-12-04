@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class BSPlayer : MonoBehaviour
 {
-    public float speed = 100;
+    public float speed = 1;
     public Rigidbody2D rb;
+    private bool onGround = true;
 
     private bool isTriggered = false;
     private Collider2D button;
@@ -39,7 +40,17 @@ public class BSPlayer : MonoBehaviour
 
     public void OnMove(Vector2 input)
     {
-        rb.MovePosition(rb.transform.position + new Vector3(input.x, input.y, 0));
+        if(onGround) rb.MovePosition(rb.transform.position + new Vector3(input.x, 0, 0));
+        else rb.MovePosition(rb.transform.position + new Vector3(input.x, -Time.deltaTime * speed * 10, 0));
+    }
+
+    public void Jump()
+    {
+        if(onGround)
+        {
+            onGround = false;
+            rb.MovePosition(rb.transform.position + new Vector3(0, Time.deltaTime * speed * 10, 0));
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -53,5 +64,11 @@ public class BSPlayer : MonoBehaviour
         isTriggered = false;
     }
 
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Floor")
+        {
+            onGround = true;
+        }
+    }
 }
