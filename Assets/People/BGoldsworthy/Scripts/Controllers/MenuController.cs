@@ -402,6 +402,14 @@ public class MenuController : MonoBehaviour
                 TextChange();
                 changeLoadingUi = 0;
             }
+            if (operation.progress < minimumLoadingTime)
+            {
+                progressBar.value = operation.progress;
+            }
+            else
+            {
+                progressBar.value = minimumLoadingTime / 3;
+            }
             progressBar.value = operation.progress;
             if (operation.isDone && minimumLoadingTime >= 2f)
             {
