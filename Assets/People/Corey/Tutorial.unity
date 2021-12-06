@@ -3382,9 +3382,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1629471976}
   - component: {fileID: 1629471975}
-  - component: {fileID: 1629471979}
   - component: {fileID: 1629471978}
   - component: {fileID: 1629471977}
+  - component: {fileID: 1629471979}
   m_Layer: 0
   m_Name: GhostGirl
   m_TagString: Untagged
@@ -3513,10 +3513,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1629471974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b10ac35fb517c24bb4fa2885d8a8fab, type: 3}
+  m_Script: {fileID: 11500000, guid: ede81095929942649998703105a1d734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
+  speed: 100
   rb: {fileID: 1629471978}
 --- !u!1 &1629855252 stripped
 GameObject:
