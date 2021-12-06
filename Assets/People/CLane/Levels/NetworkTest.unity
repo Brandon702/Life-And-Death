@@ -796,7 +796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8431780339312468449, guid: 5dc22c8b653fcb646bdaa369583d5cb4, type: 3}
       propertyPath: maxConnections
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8431780339312468449, guid: 5dc22c8b653fcb646bdaa369583d5cb4, type: 3}
       propertyPath: networkAddress
