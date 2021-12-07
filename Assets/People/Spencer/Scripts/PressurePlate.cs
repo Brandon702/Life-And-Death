@@ -12,12 +12,7 @@ public class PressurePlate : MonoBehaviour
     private PressurePlate otherPressurePlate;
     [SerializeField]
     private GameObject gameObjectPassedIn;
-    private Vector3 objectPosition;
-
-    private void Start()
-    {
-        Time.timeScale = 1;
-    }
+    
 
     // Update is called once per frame
     void Update()
@@ -69,11 +64,10 @@ public class PressurePlate : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if(transform.position.y <= minHeight) isActivated = false;
-
-        if (needsSecond == true && otherPressurePlate.isActivated)
+        if (transform.position.y <= minHeight)
         {
-            ChangeOtherObject();
+            isActivated = false;
+
         }
     }
 }
