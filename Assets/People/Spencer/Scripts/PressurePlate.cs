@@ -17,56 +17,55 @@ public class PressurePlate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        objectPosition = gameObject.transform.position;
-
+        
         if (isActivated == true)
         {
-            Debug.Log("activated");
-            //objectPosition = gameObject.transform.position;
-            objectPosition.y -= Time.deltaTime;
-            //gameObject.transform.position = new Vector3(objectPosition.x, objectPosition.y, objectPosition.z);
-            if (objectPosition.y <= minHeight)
+            if (transform.position.y > minHeight)
             {
-                objectPosition.y = minHeight;
+                transform.position -= new Vector3(0, 1 * Time.deltaTime, 0);
             }
         }
-        else if(isActivated == false)
+        else
         {
-            //Vector3 objectPosition = gameObject.transform.position;
+            Vector3 objectPosition = gameObject.transform.position;
             objectPosition.y += Time.deltaTime;
             if (objectPosition.y >= maxHeight)
             {
-                objectPosition.y = maxHeight;
+                transform.position += new Vector3(0, 1 * Time.deltaTime, 0);
             }
         }
-        gameObject.transform.position = new Vector3(objectPosition.x, objectPosition.y, objectPosition.z);
 
-        if (needsSecond == true && otherPressurePlate.isActivated == true)
+
+    }
+
+    private void ChangeOtherObject()
+    {
+        if (gameObjectPassedIn.TryGetComponent<LockedDoor>(out LockedDoor door))
         {
-            if(gameObjectPassedIn.TryGetComponent<LockedDoor>(out LockedDoor door))
-            {
-                door.ChangeLocked();
-            }
-            else if(gameObjectPassedIn.TryGetComponent<HorizontalPlatform>(out HorizontalPlatform hPlatform))
-            {
-                hPlatform.GetComponent<HorizontalPlatform>().enabled = true;
-            }
-            else if(gameObjectPassedIn.TryGetComponent<VerticalPlatform>(out VerticalPlatform vPlatform))
-            {
-                vPlatform.GetComponent<VerticalPlatform>().enabled = true;
-            }
+            door.ChangeLocked();
+        }
+        else if (gameObjectPassedIn.TryGetComponent<HorizontalPlatform>(out HorizontalPlatform hPlatform))
+        {
+            hPlatform.GetComponent<HorizontalPlatform>().enabled = true;
+        }
+        else if (gameObjectPassedIn.TryGetComponent<VerticalPlatform>(out VerticalPlatform vPlatform))
+        {
+            vPlatform.GetComponent<VerticalPlatform>().enabled = true;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Here");
-        isActivated = true;
+        if(transform.position.y >= maxHeight) isActivated = true;
+
+        if (needsSecond == true && otherPressurePlate.isActivated)
+        {
+            ChangeOtherObject();
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        Debug.Log("Unactivated");
         isActivated = false;
     }
 }
