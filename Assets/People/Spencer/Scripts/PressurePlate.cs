@@ -12,7 +12,7 @@ public class PressurePlate : MonoBehaviour
     private PressurePlate otherPressurePlate;
     [SerializeField]
     private GameObject gameObjectPassedIn;
-    private Vector3 objectPosition;
+    
 
     // Update is called once per frame
     void Update()
@@ -27,9 +27,7 @@ public class PressurePlate : MonoBehaviour
         }
         else
         {
-            Vector3 objectPosition = gameObject.transform.position;
-            objectPosition.y += Time.deltaTime;
-            if (objectPosition.y >= maxHeight)
+            if (transform.position.y < maxHeight)
             {
                 transform.position += new Vector3(0, 1 * Time.deltaTime, 0);
             }
@@ -66,6 +64,10 @@ public class PressurePlate : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        isActivated = false;
+        if (transform.position.y <= minHeight)
+        {
+            isActivated = false;
+
+        }
     }
 }
