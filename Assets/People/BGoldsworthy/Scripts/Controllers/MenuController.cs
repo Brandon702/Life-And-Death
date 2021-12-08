@@ -23,6 +23,7 @@ public class MenuController : MonoBehaviour
     private GameObject GamePanel;
     private GameObject VideoPanel;
     private GameObject LoadingScreenPanel;
+    private GameObject LevelSelectPanel;
 
     [Header("Other")]
     public GameController gameController;
@@ -111,6 +112,16 @@ public class MenuController : MonoBehaviour
             startText.transform.localScale = new Vector3(1, 1, 1) * scaleMultiplier;
             
        }
+       //if(GameController.Instance.state == eState.GAME)
+       //{
+       //    GamePanel.SetActive(true);
+       //}
+       //string justWork = SceneManager.GetActiveScene().name;
+
+        //if (justWork != "Main")
+        //{
+        //    LevelSelectPanel.SetActive(true);
+        //}
     }
 
     private bool IsPointerOverUIObject(int val)
@@ -224,6 +235,7 @@ public class MenuController : MonoBehaviour
                 if (child.name == "InstructionsPanel") { InstructionsPanel = child.gameObject; }
                 if (child.name == "GamePanel") { GamePanel = child.gameObject; }
                 if (child.name == "VideoPanel") { VideoPanel = child.gameObject; }
+                if (child.name == "LevelSelectPanel") { LevelSelectPanel = child.gameObject; }
             }
             else if(child.gameObject.CompareTag("UI") && child.name == "LoadingScreenPanel")
             {
@@ -262,6 +274,11 @@ public class MenuController : MonoBehaviour
         //Time.timeScale = 1;
         GamePanel.SetActive(true);
         GameController.Instance.state = eState.GAME;
+        //string name = SceneManager.GetActiveScene().name;
+        //if (name == "Game")
+        //{
+        //    LevelSelectPanel.SetActive(true);
+        //}
         Debug.Log("Resume Game");
     }
 
@@ -363,12 +380,18 @@ public class MenuController : MonoBehaviour
         GameController.Instance.state = eState.PAUSE;
     }
 
+    public void justWork(string levelName)
+    {
+        StartCoroutine(LoadLevel(levelName));
+    }
+
     private IEnumerator LoadLevel(string levelName)
     {
         if (transitionTime <= 0)
         {
             transitionTime = 2;
         }
+        
         Time.timeScale = 1;
         isLoading = true;
         elipses = 0;
@@ -378,10 +401,15 @@ public class MenuController : MonoBehaviour
         transition.SetTrigger("Start");
         yield return new WaitForSeconds(transitionTime);
         Disable();
+        LevelSelectPanel.SetActive(false);
         if (levelName == "Main")
         {
             var scene = GameObject.Find("Scene").GetComponent<Transform>();
             Destroy(scene.root.gameObject);
+        }
+        else if (levelName == "Game")
+        {
+            LevelSelectPanel.SetActive(true);
         }
         else
         {
