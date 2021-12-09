@@ -4,42 +4,33 @@ using UnityEngine;
 
 public class FinishLevel : MonoBehaviour
 {
+    public MenuController menuController;
+
     private List<GameObject> players = new List<GameObject>();
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Ghost" || collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Ghost" || collision.gameObject.tag == "Player")
         {
             players.Add(collision.gameObject);
             CheckPlayers();
         }
     }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Ghost" || collision.gameObject.tag == "Player")
-        {
-            players.Remove(collision.gameObject);
-        }
-    }
+    
 
     private void CheckPlayers()
     {
-        if(players.Count == 2)
+        if(players.Count == 1)
         {
-            foreach(GameObject g in players)
-            {
-                if(g.tag == "Player")
-                {
-                    //Stop Movement
-                }
-                else if(g.tag == "Ghost")
-                {
-                    //Stop Movement
-                }
-            }
+            Debug.Log("YOU WIN");
             //Timer Countdown (?)
             //End Level
+            menuController = GameObject.Find("Controllers").GetComponent<MenuController>();
+            if(menuController != null)
+            {
+                Debug.Log("YOU WIN!!!!!");
+                menuController.justWork("Game");
+            }
         }
     }
 }

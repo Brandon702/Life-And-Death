@@ -418,7 +418,7 @@ public class MenuController : MonoBehaviour
             GamePanel.SetActive(true);
         }
 
-        AsyncOperation operation = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Single);
         loadingText.text = "Loading Game...";
         changeLoadingUi = 3;
         while (isLoading)
